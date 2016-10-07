@@ -5,16 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.venus.frame.init.SystemInitializer;
-
 @SpringBootApplication
 @ServletComponentScan
 public class Main extends WebMvcConfigurerAdapter
 {
     public static void main(String[] args)
     {
+    	System.setProperty("spring.config.name", "venus");
         SpringApplication application = new SpringApplication(Main.class);
-        application.addListeners(new SystemInitializer());
         application.run(args);
     }
 
