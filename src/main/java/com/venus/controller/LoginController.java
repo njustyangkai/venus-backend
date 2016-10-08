@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("api/${application.version}/auth")
-public class AuthController {
-	@RequestMapping(value="loadStudents",method=RequestMethod.GET )
+@RequestMapping("api/${application.version}/login")
+public class LoginController {
+	@RequestMapping(value="",method=RequestMethod.GET)
 	@ResponseBody
-	public Object loadStudents() {
-		return "this is a test";
+	public Object login() {
+		return "login";
 	}
 }
