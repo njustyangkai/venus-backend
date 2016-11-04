@@ -20,7 +20,7 @@ public class LoginDao {
 	
 	public User login(JSONObject jsonObject) throws Exception {
 		String sql = "select * from v_user u where u.username=? and u.password=?";
-		List<User> list = jdbcTemplate.query(sql, new UserRowMapper(), jsonObject.getString("name"), jsonObject.getString("password"));
+		List<User> list = jdbcTemplate.query(sql, new UserRowMapper(), jsonObject.getString("username"), jsonObject.getString("password"));
 		if (!CollectionUtils.isEmpty(list))
 		{
 			return list.get(0);
