@@ -17,7 +17,7 @@ import com.venus.service.StudentService;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("api/${application.version}/student")
+@RequestMapping("api/student")
 public class StudentController {
 	private ResultBean result;
 

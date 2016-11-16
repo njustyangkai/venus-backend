@@ -18,25 +18,25 @@ import com.venus.service.LoginService;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("api/${application.version}/login")
+@RequestMapping("api/login")
 public class LoginController {
-	
+
 	private ResultBean result;
-	
+
 	@Resource
 	private LoginService loginService;
-	
+
 	/**
 	 * login
 	 * 
-	 * @param loginInfo {name: '',password: ''}
+	 * @param
 	 * @return
 	 */
-	@RequestMapping(value="",method=RequestMethod.POST)
+	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public Object login(@RequestBody JSONObject loginInfo) {
 		try {
-			Map<String,Object> res = loginService.login(loginInfo);
+			Map<String, Object> res = loginService.login(loginInfo);
 			if (res.get("user") != null) {
 				User user = (User) res.get("user");
 				if (user.getState().intValue() == 1) {
@@ -45,15 +45,15 @@ public class LoginController {
 				} else {
 					result = ResultBean.getResult(false, "账号未激活！", null);
 				}
-				
+
 			} else {
 				result = ResultBean.getResult(false, "账号或密码错误！", null);
 			}
-			
+
 		} catch (Exception e) {
 			result = ResultBean.getResult(false, e.getMessage(), null);
 		}
-		
+
 		return result;
 	}
 }
