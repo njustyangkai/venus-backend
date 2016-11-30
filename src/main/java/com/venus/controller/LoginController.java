@@ -40,18 +40,18 @@ public class LoginController {
 			if (res.get("user") != null) {
 				User user = (User) res.get("user");
 				if (user.getState().intValue() == 1) {
-					result = ResultBean.getResult(true, "", res);
+					result = ResultBean.getSuccess("", res);
 					loginService.changeLastLogTime(user.getId());
 				} else {
-					result = ResultBean.getResult(false, "账号未激活！", null);
+					result = ResultBean.getFail("账号未激活！", null);
 				}
 
 			} else {
-				result = ResultBean.getResult(false, "账号或密码错误！", null);
+				result = ResultBean.getFail("账号或密码错误！", null);
 			}
 
 		} catch (Exception e) {
-			result = ResultBean.getResult(false, e.getMessage(), null);
+			result = ResultBean.getFail(e.getMessage(), null);
 		}
 
 		return result;

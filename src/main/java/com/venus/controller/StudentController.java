@@ -30,9 +30,9 @@ public class StudentController {
 		try {
 			List<StudentInfo> students = new ArrayList<StudentInfo>();
 			students = studentService.getStudents();
-			result = ResultBean.getResult(true, "", students);
+			result = ResultBean.getSuccess("", students);
 		} catch (Exception e) {
-			result = ResultBean.getResult(false, e.getMessage(), null);
+			result = ResultBean.getFail(e.getMessage(), null);
 		}
 
 		return result;
