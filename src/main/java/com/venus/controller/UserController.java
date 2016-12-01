@@ -54,4 +54,29 @@ public class UserController {
 		return result;
 	}
 
+	@RequestMapping(value = "isUsernameUsed", method = RequestMethod.POST)
+	@ResponseBody
+	public Object isUsernameUsed(@RequestBody JSONObject username) {
+		try {
+			result = ResultBean.getSuccess("", userService.isUsernameUsed(username));
+
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "register", method = RequestMethod.POST)
+	@ResponseBody
+	public Object register(@RequestBody JSONObject userInfo) {
+		try {
+			if (userService.addUser(userInfo)) {
+				result = ResultBean.getSuccess("", null);
+			}
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }
