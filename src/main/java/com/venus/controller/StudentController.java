@@ -1,7 +1,7 @@
 package com.venus.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.venus.frame.utils.ResultBean;
-import com.venus.pojo.StudentInfo;
 import com.venus.service.StudentService;
 
 @RestController
@@ -28,14 +27,11 @@ public class StudentController {
 	@ResponseBody
 	public Object getStudents() {
 		try {
-			List<StudentInfo> students = new ArrayList<StudentInfo>();
-			students = studentService.getStudents();
+			List<Map<String, Object>> students = studentService.getStudents();
 			result = ResultBean.getSuccess("", students);
 		} catch (Exception e) {
 			result = ResultBean.getFail(e.getMessage(), null);
 		}
-
 		return result;
-
 	}
 }

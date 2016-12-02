@@ -1,6 +1,7 @@
 package com.venus.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -9,8 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.alibaba.fastjson.JSONObject;
 import com.venus.frame.constants.Constants;
-import com.venus.mapper.UserRowMapper;
-import com.venus.pojo.User;
 
 @Repository
 public class UserDao {
@@ -19,13 +18,13 @@ public class UserDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public boolean modifyPwd(String userId, JSONObject newPwd) throws Exception {
-		String sql = "update v_user set password=? where id=?";
+		String sql = "update v_user set password=? where user_id=?";
 		return jdbcTemplate.update(sql, newPwd.getString("newPassword"), userId) > 0;
 	}
 
 	public boolean isPwdRight(JSONObject pwd) throws Exception {
-		String sql = "select * from v_user where id=? and password=?";
-		List<User> list = jdbcTemplate.query(sql, new UserRowMapper(), pwd.getString("userId"),
+		String sql = "select * from v_user where user_id=? and password=?";
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, pwd.getString("userId"),
 				pwd.getString("password"));
 		if (list != null && list.size() > 0) {
 			return true;
@@ -35,7 +34,7 @@ public class UserDao {
 
 	public boolean isUsernameUsed(JSONObject username) throws Exception {
 		String sql = "select * from v_user where username=?";
-		List<User> list = jdbcTemplate.query(sql, new UserRowMapper(), username.getString("username"));
+		List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, username.getString("username"));
 		if (list != null && list.size() > 0) {
 			return true;
 		}
@@ -43,18 +42,18 @@ public class UserDao {
 	}
 
 	public boolean addUser(String id, JSONObject user) throws Exception {
-		String sql = "insert into v_user(id,username,password,createtime,lastlogtime,state) values(?,?,?,now(),now(),?)";
+		String sql = "insert into v_user(user_id,username,password,create_time,last_log_time,status) values(?,?,?,now(),now(),?)";
 		return jdbcTemplate.update(sql, id, user.getString("username"), user.getString("password"),
 				Constants.USER_LOCK) > 0;
 	}
 
-	public boolean addRole(String id) throws Exception {
+	public boolean addRole(String id, int role) throws Exception {
 		String sql = "insert into v_user_auth(user_id, auth_type) values(?, ?)";
-		return this.jdbcTemplate.update(sql, id, Constants.AUTH_TYPE_STUDENT) > 0;
+		return this.jdbcTemplate.update(sql, id, role) > 0;
 	}
 
 	public void delUser(String id) throws Exception {
-		String sql = "delete from v_user where id=?";
+		String sql = "delete from v_user where user_id=?";
 		jdbcTemplate.update(sql, id);
 	}
 

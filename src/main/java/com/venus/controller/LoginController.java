@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.venus.frame.utils.ResultBean;
-import com.venus.pojo.User;
 import com.venus.service.LoginService;
 
 @RestController
@@ -38,10 +37,11 @@ public class LoginController {
 		try {
 			Map<String, Object> res = loginService.login(loginInfo);
 			if (res.get("user") != null) {
-				User user = (User) res.get("user");
-				if (user.getState().intValue() == 1) {
+				@SuppressWarnings("unchecked")
+				Map<String, Object> user = (Map<String, Object>) res.get("user");
+				if ((Integer) user.get("status") == 1) {
 					result = ResultBean.getSuccess("", res);
-					loginService.changeLastLogTime(user.getId());
+					loginService.changeLastLogTime((String) user.get("user_id"));
 				} else {
 					result = ResultBean.getFail("账号未激活！", null);
 				}

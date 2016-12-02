@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.venus.dao.UserDao;
+import com.venus.frame.constants.Constants;
 
 @Service
 public class UserService {
@@ -29,10 +30,8 @@ public class UserService {
 
 	public boolean addUser(JSONObject userInfo) throws Exception {
 		String id = UUID.randomUUID().toString();
-		boolean result = userDao.addUser(id, userInfo)
-				&& userDao.addRole(id);
-		if (!result)
-		{
+		boolean result = userDao.addUser(id, userInfo) && userDao.addRole(id, Constants.AUTH_TYPE_STUDENT);
+		if (!result) {
 			userDao.delUser(id);
 			userDao.delRole(id);
 		}

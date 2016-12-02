@@ -9,25 +9,24 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.venus.dao.LoginDao;
-import com.venus.pojo.User;
 
 @Service
 public class LoginService {
 
-	@Resource 
+	@Resource
 	private LoginDao loginDao;
-	
-	public Map<String,Object> login(JSONObject jsonObject) throws Exception {
+
+	public Map<String, Object> login(JSONObject jsonObject) throws Exception {
 		Map<String, Object> logInfo = new HashMap<String, Object>();
-		User user = loginDao.login(jsonObject);
+		Map<String, Object> user = loginDao.login(jsonObject);
 		if (user != null) {
 			logInfo.put("user", user);
-			logInfo.put("role", loginDao.getRole(user.getId()));
+			logInfo.put("role", loginDao.getRole((String) user.get("user_id")));
 		}
 		return logInfo;
 	}
-	
-	public void changeLastLogTime (String userId) throws Exception {
+
+	public void changeLastLogTime(String userId) throws Exception {
 		loginDao.changeLastLogTime(userId);
 	}
 }
