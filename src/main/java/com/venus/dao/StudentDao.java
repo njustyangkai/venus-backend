@@ -25,7 +25,7 @@ public class StudentDao {
 		String sql = "insert into v_student(student_id,name,email,grade,birthday,phone,parent_phone,sex) values(?,?,?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql, id, addInfo.getString("name"), addInfo.getString("email"),
 				addInfo.getString("grade"), addInfo.getDate("birthday"), addInfo.getString("phone"),
-				addInfo.getString("parentPhone")) > 0;
+				addInfo.getString("parentPhone"), addInfo.getString("sex")) > 0;
 	}
 
 	public void del(String id) throws Exception {
