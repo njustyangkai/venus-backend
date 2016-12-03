@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.venus.dao.StudentDao;
 
 @Service
@@ -15,7 +16,19 @@ public class StudentService {
 	@Resource
 	private StudentDao studentDao;
 
-	public List<Map<String, Object>> getStudents() throws Exception {
-		return studentDao.getStudents();
+	public List<Map<String, Object>> get() throws Exception {
+		return studentDao.get();
+	}
+
+	public boolean add(String id, JSONObject addInfo) throws Exception {
+		boolean res = studentDao.add(id, addInfo);
+		if (!res) {
+			studentDao.del(id);
+		}
+		return res;
+	}
+
+	public void del(String id) throws Exception {
+		studentDao.del(id);
 	}
 }

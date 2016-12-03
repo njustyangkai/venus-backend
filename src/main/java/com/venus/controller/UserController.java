@@ -1,5 +1,7 @@
 package com.venus.controller;
 
+import java.util.UUID;
+
 import javax.annotation.Resource;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -70,7 +72,8 @@ public class UserController {
 	@ResponseBody
 	public Object register(@RequestBody JSONObject userInfo) {
 		try {
-			if (userService.addUser(userInfo)) {
+			String id = UUID.randomUUID().toString();
+			if (userService.addUser(id, userInfo)) {
 				result = ResultBean.getSuccess("", null);
 			}
 		} catch (Exception e) {
