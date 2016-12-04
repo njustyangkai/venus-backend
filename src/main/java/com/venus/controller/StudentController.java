@@ -8,6 +8,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,4 +65,19 @@ public class StudentController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public Object del(@PathVariable String id) {
+		try {
+			userService.delUser(id);
+			userService.delRole(id);
+			studentService.del(id);
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }

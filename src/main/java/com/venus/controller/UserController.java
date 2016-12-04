@@ -82,4 +82,16 @@ public class UserController {
 		return result;
 	}
 
+	@RequestMapping(value = "changeStatus/{userId}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Object changeStatus(@PathVariable String userId, @RequestBody JSONObject changeInfo) {
+		try {
+			userService.changeStatus(userId, changeInfo.getIntValue("status"));
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }

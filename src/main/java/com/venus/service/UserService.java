@@ -43,4 +43,8 @@ public class UserService {
 		userDao.delRole(id);
 	}
 
+	public void changeStatus(String id, int status) throws Exception {
+		userDao.changeStatus(id, status);
+	}
+
 }

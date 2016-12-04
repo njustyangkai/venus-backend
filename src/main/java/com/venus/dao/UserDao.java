@@ -62,4 +62,9 @@ public class UserDao {
 		jdbcTemplate.update(sql, id);
 	}
 
+	public void changeStatus(String id, int status) throws Exception {
+		String sql = "update v_user set status=? where user_id =?";
+		jdbcTemplate.update(sql, status, id);
+	}
+
 }
