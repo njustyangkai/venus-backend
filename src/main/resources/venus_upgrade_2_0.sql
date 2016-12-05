@@ -31,7 +31,7 @@ begin
 	
 	select count(*) into count from information_schema.columns where table_name='v_event' and column_name='id';
 	if(count > 0) then 
-		alter table v_student change column id event_id varchar(100) not null;
+		alter table v_event change column id event_id varchar(100) not null;
 	end if;
 	
 end &&
