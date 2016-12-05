@@ -1,5 +1,8 @@
 package com.venus.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -45,6 +48,12 @@ public class UserService {
 
 	public void changeStatus(String id, int status) throws Exception {
 		userDao.changeStatus(id, status);
+	}
+
+	public void resetPwd(String id) throws Exception {
+		Map<String, Object> newPwd = new HashMap<String, Object>();
+		newPwd.put("newPassword", Constants.RESET_PASSWORD);
+		userDao.modifyPwd(id, new JSONObject(newPwd));
 	}
 
 }

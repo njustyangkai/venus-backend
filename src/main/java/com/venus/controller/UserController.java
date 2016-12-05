@@ -94,4 +94,16 @@ public class UserController {
 		return result;
 	}
 
+	@RequestMapping(value = "resetPwd/{userId}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Object resetPwd(@PathVariable String userId) {
+		try {
+			userService.resetPwd(userId);
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }

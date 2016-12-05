@@ -25,12 +25,6 @@ public class LoginController {
 	@Resource
 	private LoginService loginService;
 
-	/**
-	 * login
-	 * 
-	 * @param
-	 * @return
-	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public Object login(@RequestBody JSONObject loginInfo) {
