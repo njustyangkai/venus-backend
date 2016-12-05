@@ -18,7 +18,7 @@ public class StudentDao {
 
 	public List<Map<String, Object>> get() throws Exception {
 		String sql = "select u.*, a.auth_type, s.* from v_user u left join v_student s on u.user_id=s.student_id,"
-				+ " v_user_auth a where u.user_id = a.user_id and a.auth_type = 1 order by u.username asc";
+				+ " v_user_auth a where u.user_id = a.user_id and a.auth_type = 1 order by convert( s.name using gbk ) collate gbk_chinese_ci asc";
 		return jdbcTemplate.queryForList(sql);
 	}
 
@@ -44,5 +44,11 @@ public class StudentDao {
 	public Map<String, Object> getById(String id) throws Exception {
 		String sql = "select * from v_student where student_id=?";
 		return jdbcTemplate.queryForMap(sql, id);
+	}
+
+	public List<Map<String, Object>> getForPicker() throws Exception {
+		String sql = "select u.*, a.auth_type, s.* from v_user u left join v_student s on u.user_id=s.student_id,"
+				+ " v_user_auth a where u.user_id = a.user_id and u.status = 1 and a.auth_type = 1 order by convert( s.name using gbk ) collate gbk_chinese_ci asc";
+		return jdbcTemplate.queryForList(sql);
 	}
 }

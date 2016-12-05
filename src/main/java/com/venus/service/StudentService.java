@@ -39,4 +39,8 @@ public class StudentService {
 	public Map<String, Object> getById(String id) throws Exception {
 		return studentDao.getById(id);
 	}
+
+	public List<Map<String, Object>> getForPicker() throws Exception {
+		return studentDao.getForPicker();
+	}
 }

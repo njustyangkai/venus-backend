@@ -118,4 +118,16 @@ public class StudentController {
 		return result;
 	}
 
+	@RequestMapping(value = "forPicker", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getForPicker() {
+		try {
+			result = ResultBean.getSuccess("", studentService.getForPicker());
+
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }
