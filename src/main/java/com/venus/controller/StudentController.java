@@ -92,4 +92,15 @@ public class StudentController {
 		return result;
 	}
 
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getById(@PathVariable String id) {
+		try {
+			result = ResultBean.getSuccess("", studentService.getById(id));
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }

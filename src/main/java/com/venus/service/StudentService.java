@@ -35,4 +35,8 @@ public class StudentService {
 	public void edit(String id, JSONObject editInfo) throws Exception {
 		studentDao.edit(id, editInfo);
 	}
+
+	public Map<String, Object> getById(String id) throws Exception {
+		return studentDao.getById(id);
+	}
 }

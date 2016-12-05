@@ -17,7 +17,8 @@ public class StudentDao {
 	private JdbcTemplate jdbcTemplate;
 
 	public List<Map<String, Object>> get() throws Exception {
-		String sql = "select * from v_user u left join v_student s on u.user_id=s.student_id order by u.username asc";
+		String sql = "select u.*, a.auth_type, s.* from v_user u left join v_student s on u.user_id=s.student_id,"
+				+ " v_user_auth a where u.user_id = a.user_id and a.auth_type = 1 order by u.username asc";
 		return jdbcTemplate.queryForList(sql);
 	}
 
@@ -38,5 +39,10 @@ public class StudentDao {
 		jdbcTemplate.update(sql, editInfo.getString("name"), editInfo.getString("email"), editInfo.getString("grade"),
 				editInfo.getDate("birthday"), editInfo.getString("phone"), editInfo.getString("parent_phone"),
 				editInfo.getString("sex"), id);
+	}
+
+	public Map<String, Object> getById(String id) throws Exception {
+		String sql = "select * from v_student where student_id=?";
+		return jdbcTemplate.queryForMap(sql, id);
 	}
 }
