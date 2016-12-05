@@ -103,4 +103,19 @@ public class StudentController {
 		return result;
 	}
 
+	@RequestMapping(value = "{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public Object addInfo(@PathVariable String id, @RequestBody JSONObject info) {
+		try {
+			if (studentService.add(id, info)) {
+				result = ResultBean.getSuccess("", null);
+			} else {
+				result = ResultBean.getFail("", null);
+			}
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }
