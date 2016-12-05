@@ -80,4 +80,16 @@ public class StudentController {
 		return result;
 	}
 
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Object edit(@PathVariable String id, @RequestBody JSONObject editInfo) {
+		try {
+			studentService.edit(id, editInfo);
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }

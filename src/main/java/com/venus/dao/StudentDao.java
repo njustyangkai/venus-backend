@@ -32,4 +32,11 @@ public class StudentDao {
 		String sql = "delete from v_student where student_id=?";
 		jdbcTemplate.update(sql, id);
 	}
+
+	public void edit(String id, JSONObject editInfo) throws Exception {
+		String sql = "update v_student set name=?, email=?, grade=?, birthday=?, phone=?, parent_phone=?,sex=? where student_id=?";
+		jdbcTemplate.update(sql, editInfo.getString("name"), editInfo.getString("email"), editInfo.getString("grade"),
+				editInfo.getDate("birthday"), editInfo.getString("phone"), editInfo.getString("parent_phone"),
+				editInfo.getString("sex"), id);
+	}
 }

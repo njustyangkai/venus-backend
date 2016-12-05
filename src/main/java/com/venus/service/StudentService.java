@@ -31,4 +31,8 @@ public class StudentService {
 	public void del(String id) throws Exception {
 		studentDao.del(id);
 	}
+
+	public void edit(String id, JSONObject editInfo) throws Exception {
+		studentDao.edit(id, editInfo);
+	}
 }
