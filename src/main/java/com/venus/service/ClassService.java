@@ -31,4 +31,8 @@ public class ClassService {
 	public void del(String id) throws Exception {
 		classDao.del(id);
 	}
+
+	public List<Map<String, Object>> getById(String id) throws Exception {
+		return classDao.getById(id);
+	}
 }

@@ -39,4 +39,9 @@ public class ClassDao {
 		String sql = "delete from v_event where event_id=?";
 		jdbcTemplate.update(sql, id);
 	}
+
+	public List<Map<String, Object>> getById(String id) throws Exception {
+		String sql = "select * from v_event where student_id=? order by start_time asc";
+		return jdbcTemplate.queryForList(sql, id);
+	}
 }

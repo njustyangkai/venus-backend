@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.venus.frame.utils.ResultBean;
+import com.venus.service.ClassService;
 import com.venus.service.StudentService;
 import com.venus.service.UserService;
 
@@ -30,6 +31,8 @@ public class StudentController {
 	private StudentService studentService;
 	@Resource
 	private UserService userService;
+	@Resource
+	private ClassService classService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	@ResponseBody
@@ -70,10 +73,14 @@ public class StudentController {
 	@ResponseBody
 	public Object del(@PathVariable String id) {
 		try {
-			userService.delUser(id);
-			userService.delRole(id);
-			studentService.del(id);
-			result = ResultBean.getSuccess("", null);
+			if (canDel(id)) {
+				userService.delUser(id);
+				userService.delRole(id);
+				studentService.del(id);
+				result = ResultBean.getSuccess("", null);
+			} else {
+				result = ResultBean.getFail("学生已有课程数据，请先删除课程。", null);
+			}
 		} catch (Exception e) {
 			result = ResultBean.getFail(e.getMessage(), null);
 		}
@@ -130,4 +137,18 @@ public class StudentController {
 		return result;
 	}
 
+	private boolean canDel(String id) {
+		boolean res;
+		try {
+			List<Map<String, Object>> list = classService.getById(id);
+			if (list != null && list.size() > 0) {
+				res = false;
+			} else {
+				res = true;
+			}
+		} catch (Exception e) {
+			res = false;
+		}
+		return res;
+	}
 }

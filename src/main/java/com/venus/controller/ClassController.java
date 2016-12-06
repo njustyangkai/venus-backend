@@ -48,6 +48,17 @@ public class ClassController {
 		return result;
 	}
 
+	@RequestMapping(value = "one", method = RequestMethod.GET)
+	@ResponseBody
+	public Object getById(@RequestParam String id) {
+		try {
+			result = ResultBean.getSuccess("", classService.getById(id));
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	@ResponseBody
 	public Object add(@RequestBody JSONObject addInfo) {
