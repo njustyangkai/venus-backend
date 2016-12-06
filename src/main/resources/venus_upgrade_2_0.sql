@@ -1,5 +1,5 @@
 drop procedure if exists proc_upgrade_2_0;
-delimiter && 
+delimiter || 
 create procedure proc_upgrade_2_0()
 begin
 	declare count int;
@@ -39,8 +39,7 @@ begin
 		alter table v_event add pay int(10) null;
 	end if;
 	
-end &&
-delimiter;
+end;
 commit;
 
 call proc_upgrade_2_0;
