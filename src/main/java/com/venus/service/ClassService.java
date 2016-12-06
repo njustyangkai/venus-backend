@@ -35,4 +35,8 @@ public class ClassService {
 	public List<Map<String, Object>> getById(String id) throws Exception {
 		return classDao.getById(id);
 	}
+
+	public void payTag(String id, JSONObject tag) throws Exception {
+		classDao.payTag(id, tag);
+	}
 }

@@ -86,4 +86,16 @@ public class ClassController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public Object payTag(@PathVariable String id, @RequestBody JSONObject tag) {
+		try {
+			classService.payTag(id, tag);
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
 }

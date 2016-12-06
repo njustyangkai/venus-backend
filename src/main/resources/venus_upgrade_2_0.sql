@@ -34,6 +34,11 @@ begin
 		alter table v_event change column id event_id varchar(100) not null;
 	end if;
 	
+	select count(*) into count from information_schema.columns where table_name='v_event' and column_name='pay';
+	if(count < 1) then 
+		alter table v_event add pay int(10) null;
+	end if;
+	
 end &&
 delimiter;
 commit;

@@ -44,4 +44,9 @@ public class ClassDao {
 		String sql = "select * from v_event where student_id=? order by start_time asc";
 		return jdbcTemplate.queryForList(sql, id);
 	}
+
+	public void payTag(String id, JSONObject tag) throws Exception {
+		String sql = "update v_event set pay=? where event_id=?";
+		jdbcTemplate.update(sql, tag.getIntValue("pay"), id);
+	}
 }
