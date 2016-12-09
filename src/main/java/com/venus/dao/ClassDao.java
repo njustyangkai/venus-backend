@@ -52,7 +52,7 @@ public class ClassDao {
 
 	public boolean delByTime(String start, String end) throws Exception {
 		String sql = "delete from v_event where start_time>? and end_time<?";
-		return jdbcTemplate.update(sql, Timestamp.valueOf(start), Timestamp.valueOf(end)) > 0;
+		return jdbcTemplate.update(sql, Timestamp.valueOf(start), Timestamp.valueOf(end)) > -1;
 	}
 
 	public void batchAdd(List<Map<String, Object>> addInfo) throws Exception {
@@ -62,8 +62,8 @@ public class ClassDao {
 			Map<String, Object> map = addInfo.get(i);
 			sqls[i] = "insert into v_event(event_id,student_id,student_name,teacher_id,teacher_name,color,start_time,end_time) values('"
 					+ map.get("event_id") + "','" + map.get("student_id") + "','" + map.get("student_name") + "','"
-					+ map.get("teacher_id") + "','" + map.get("teacher_name") + "','" + map.get("color") + "',"
-					+ map.get("start_time") + "," + map.get("end_time") + ")";
+					+ map.get("teacher_id") + "','" + map.get("teacher_name") + "','" + map.get("color") + "','"
+					+ map.get("start_time") + "','" + map.get("end_time") + "')";
 		}
 		jdbcTemplate.batchUpdate(sqls);
 	}

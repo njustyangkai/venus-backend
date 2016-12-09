@@ -44,17 +44,20 @@ public class ClassService {
 
 	public void copy(JSONObject copyInfo) throws Exception {
 		if (classDao.delByTime(copyInfo.getString("start"), copyInfo.getString("end"))) {
-			List<Map<String, Object>> list = classDao.getAll(copyInfo.getString("oriStart"), "oriEnd");
-			for (Map<String, Object> map : list) {
-				map.put("event_id", UUID.randomUUID().toString());
-				Timestamp t = (Timestamp) map.get("start_time");
-				t.setTime(t.getTime() + 7 * 24 * 3600 * 1000);
-				Timestamp t2 = (Timestamp) map.get("end_time");
-				t2.setTime(t2.getTime() + 7 * 24 * 3600 * 1000);
-				map.put("start_time", t);
-				map.put("end_time", t2);
+			List<Map<String, Object>> list = classDao.getAll(copyInfo.getString("oriStart"),
+					copyInfo.getString("oriEnd"));
+			if (list != null && list.size() > 0) {
+				for (Map<String, Object> map : list) {
+					map.put("event_id", UUID.randomUUID().toString());
+					Timestamp t = (Timestamp) map.get("start_time");
+					t.setTime(t.getTime() + 7 * 24 * 3600 * 1000);
+					Timestamp t2 = (Timestamp) map.get("end_time");
+					t2.setTime(t2.getTime() + 7 * 24 * 3600 * 1000);
+					map.put("start_time", t);
+					map.put("end_time", t2);
+				}
+				classDao.batchAdd(list);
 			}
-			classDao.batchAdd(list);
 		}
 	}
 }
