@@ -98,4 +98,17 @@ public class ClassController {
 		}
 		return result;
 	}
+
+	@RequestMapping(value = "copy", method = RequestMethod.POST)
+	@ResponseBody
+	public Object copy(@RequestBody JSONObject copyInfo) {
+		try {
+			classService.copy(copyInfo);
+			result = ResultBean.getSuccess("", null);
+		} catch (Exception e) {
+			result = ResultBean.getFail(e.getMessage(), null);
+		}
+		return result;
+	}
+
 }
